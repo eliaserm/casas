@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { InfoPage } from '../info/info';
 
 @Component({
   selector: 'page-home',
@@ -8,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomePage {
   casas = [];
+  infopage = InfoPage;
   constructor(public navCtrl: NavController,public http:HttpClient) {
     this.http.get('/v1/klfst?&category=1040&region=16&lang=es&lim=15').subscribe(data =>{
       this.casas=data['list_ads'];
@@ -16,6 +18,10 @@ export class HomePage {
       console.log(JSON.stringify(error));
     });
 
+  }
+  info(casa){
+    console.log('click');
+    this.navCtrl.push(this.infopage,{casa:casa});
   }
 
 }
